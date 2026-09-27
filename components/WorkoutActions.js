@@ -36,14 +36,14 @@ export default function WorkoutActions({ workout }) {
     <div className="flex flex-wrap gap-3">
       <button
         onClick={handleAddToPlan}
-        className="inline-flex items-center gap-2 bg-accent text-black font-bold text-sm px-5 py-2.5 rounded-full hover:brightness-95 transition"
+        className="inline-flex items-center gap-2 bg-accent text-black font-bold text-sm px-5 py-2.5 rounded-lg hover:brightness-95 transition"
       >
         <CalendarPlus size={16} />
         {inPlan ? "In Today's Plan" : "Add to today's plan"}
       </button>
       <button
         onClick={handleSave}
-        className="inline-flex items-center gap-2 border border-white/30 text-white font-bold text-sm px-5 py-2.5 rounded-full hover:border-white transition"
+        className="inline-flex items-center gap-2 border border-white/30 text-white font-bold text-sm px-5 py-2.5 rounded-lg hover:border-white transition"
       >
         <Bookmark size={16} />
         {inSaved ? "Saved" : "Save for later"}
