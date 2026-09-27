@@ -64,6 +64,7 @@ export default function MyPlanPage() {
 
   const handleMarkDone = (id) => {
     toggleDone(id);
+    removeFromPlan(id);
     showToast("Marked as done", "success");
   };
 
@@ -162,7 +163,7 @@ export default function MyPlanPage() {
           {filteredList.map((workout) => (
             <div
               key={workout.id}
-              className="flex flex-col sm:flex-row sm:items-center gap-4 bg-base-200 border border-white/10 rounded-xl p-4"
+              className="flex flex-col sm:flex-row items-center gap-4 bg-base-200 border border-white/10 rounded-xl p-4 text-center sm:text-left"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -170,7 +171,7 @@ export default function MyPlanPage() {
                 alt={workout.name}
                 className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
               />
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 flex flex-col items-center sm:items-start">
                 <p
                   className={`font-display uppercase font-bold ${workout.done ? "line-through text-gray-500" : ""
                     }`}
@@ -178,13 +179,13 @@ export default function MyPlanPage() {
                   {workout.name}
                 </p>
                 <p className="text-sm text-gray-400">{workout.equipment}</p>
-                <div className="flex items-center gap-4 mt-1 text-xs text-gray-400">
+                <div className="flex items-center justify-center sm:justify-start gap-4 mt-1 text-xs text-gray-400">
                   <span>{workout.duration} min</span>
                   <span>{workout.caloriesBurned} kcal</span>
                   <span>★ {workout.rating}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap justify-center">
                 <Link
                   href={`/workouts/${workout.id}`}
                   className="text-sm border border-white/20 px-4 py-1.5 rounded-full hover:border-white"

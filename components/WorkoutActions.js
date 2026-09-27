@@ -5,7 +5,7 @@ import { usePlan } from "@/context/PlanContext";
 import { useToast } from "@/context/ToastContext";
 
 export default function WorkoutActions({ workout }) {
-  const { addToPlan, addToSaved, isInPlan, isInSaved, isPlanFull } = usePlan();
+  const { addToPlan, addToSaved, isInPlan, isInSaved } = usePlan();
   const { showToast } = useToast();
 
   const inPlan = isInPlan(workout.id);
@@ -33,7 +33,7 @@ export default function WorkoutActions({ workout }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-col sm:flex-row items-center gap-3">
       <button
         onClick={handleAddToPlan}
         className="inline-flex items-center gap-2 bg-accent text-black font-bold text-sm px-5 py-2.5 rounded-lg hover:brightness-95 transition"
