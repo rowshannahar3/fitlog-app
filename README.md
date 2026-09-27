@@ -111,16 +111,6 @@ Workout data is served from:
 
 No API key or environment variables are required — both endpoints are public.
 
----
-
-## ☁️ Deployment
-
-Deploy on **Vercel**, **Netlify**, or **Cloudflare Pages** by connecting this
-GitHub repository — Next.js is auto-detected and no environment variables
-need to be configured.
-
-- **Live Link:**
-- **GitHub Repository Link:**
 
 ---
 
