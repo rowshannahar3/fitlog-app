@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dumbbell } from "lucide-react";
+import Image from "next/image";
 import { usePlan } from "@/context/PlanContext";
+import logoImg from "@/assets/logo.png";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { plan, saved } = usePlan();
 
   const linkClass = (href) =>
-    `px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-      pathname === href ? "bg-accent text-black" : "text-gray-300 hover:text-white"
+    `px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${pathname === href
+      ? "bg-accent/10 text-accent font-bold"
+      : "text-gray-300 hover:text-white"
     }`;
 
   return (
     <header className="border-b border-white/10 bg-base-100 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4">
         <Link href="/" className="flex items-center gap-2 font-display text-lg tracking-wide">
-          <Dumbbell className="text-accent" size={22} />
+          <Image src={logoImg} alt="FitLog logo" width={24} height={24} className="w-6 h-6" />
           FITLOG
         </Link>
 
