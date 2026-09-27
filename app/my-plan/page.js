@@ -34,16 +34,17 @@ export default function MyPlanPage() {
   const handleRemove = (id) => {
     if (activeTab === "today") {
       removeFromPlan(id);
-      showToast("Removed from today's plan");
+      showToast("Removed from today's plan", "remove");
     } else {
       removeFromSaved(id);
-      showToast("Removed from saved");
+      showToast("Removed from saved", "remove");
     }
   };
 
   const handleMarkDone = (id) => {
     toggleDone(id);
-    showToast("Marked as done");
+    removeFromPlan(id);
+    showToast("Marked as done", "success");
   };
 
   return (
@@ -76,9 +77,8 @@ export default function MyPlanPage() {
             <button
               key={value}
               onClick={() => setActiveTab(value)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                activeTab === value ? "bg-white text-black" : "text-gray-400"
-              }`}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === value ? "bg-white text-black" : "text-gray-400"
+                }`}
             >
               {label}
             </button>
@@ -137,9 +137,8 @@ export default function MyPlanPage() {
               />
               <div className="flex-1 min-w-0">
                 <p
-                  className={`font-display uppercase font-bold ${
-                    workout.done ? "line-through text-gray-500" : ""
-                  }`}
+                  className={`font-display uppercase font-bold ${workout.done ? "line-through text-gray-500" : ""
+                    }`}
                 >
                   {workout.name}
                 </p>

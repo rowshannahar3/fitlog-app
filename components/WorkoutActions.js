@@ -10,34 +10,40 @@ export default function WorkoutActions({ workout }) {
 
   const inPlan = isInPlan(workout.id);
   const inSaved = isInSaved(workout.id);
-  const planFull = isPlanFull();
 
   const handleAddToPlan = () => {
-    if (inPlan) return;
+    if (inPlan) {
+      showToast("Already added to your plan", "warning");
+      return;
+    }
     const added = addToPlan(workout);
-    showToast(added ? "Added to today's plan" : "Today's plan is full (5 lifts max)");
+    showToast(
+      added ? "Added to today's plan" : "Today's plan is full (5 lifts max)",
+      added ? "success" : "warning"
+    );
   };
 
   const handleSave = () => {
-    if (inSaved) return;
+    if (inSaved) {
+      showToast("Already saved", "warning");
+      return;
+    }
     addToSaved(workout);
-    showToast("Saved for later");
+    showToast("Saved for later", "success");
   };
 
   return (
     <div className="flex flex-wrap gap-3">
       <button
         onClick={handleAddToPlan}
-        disabled={inPlan || planFull}
-        className="inline-flex items-center gap-2 bg-accent text-black font-bold text-sm px-5 py-2.5 rounded-md disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-95 transition"
+        className="inline-flex items-center gap-2 bg-accent text-black font-bold text-sm px-5 py-2.5 rounded-full hover:brightness-95 transition"
       >
         <CalendarPlus size={16} />
         {inPlan ? "In Today's Plan" : "Add to today's plan"}
       </button>
       <button
         onClick={handleSave}
-        disabled={inSaved}
-        className="inline-flex items-center gap-2 border border-white/30 text-white font-bold text-sm px-5 py-2.5 rounded-md disabled:opacity-40 disabled:cursor-not-allowed hover:border-white transition"
+        className="inline-flex items-center gap-2 border border-white/30 text-white font-bold text-sm px-5 py-2.5 rounded-full hover:border-white transition"
       >
         <Bookmark size={16} />
         {inSaved ? "Saved" : "Save for later"}
