@@ -110,10 +110,3 @@ Workout data is served from:
 - **Fallback:** `https://api.api-store.workers.dev/api/fitlog`
 
 No API key or environment variables are required — both endpoints are public.
-
-
----
-
-## 📄 License
-
-Built for the B14-A6-Fit-Log assignment. Free to use as a learning reference.
