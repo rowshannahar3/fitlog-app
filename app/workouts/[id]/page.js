@@ -63,7 +63,7 @@ export default async function WorkoutDetailPage({ params }) {
           ))}
         </ol>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center sm:justify-start">
           <WorkoutActions workout={workout} />
         </div>
       </div>
