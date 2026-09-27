@@ -47,11 +47,11 @@ export default async function WorkoutDetailPage({ params }) {
           ))}
         </div>
 
-        <div className="bg-base-200 border border-white/10 rounded-xl divide-y divide-white/10 mb-6">
+        <div className="bg-[#171b24] border border-white/10 rounded-xl divide-y divide-white/10 mb-6">
           {specs.map(([label, value]) => (
-            <div key={label} className="flex justify-between px-4 py-2.5 text-sm">
-              <span className="text-gray-400 uppercase tracking-wide">{label}</span>
-              <span className="font-medium">{value}</span>
+            <div key={label} className="flex justify-between px-4 py-4 text-xs">
+              <span className="text-gray-400 uppercase font-bold text-xs tracking-wide">{label}</span>
+              <span className="text-sm">{value}</span>
             </div>
           ))}
         </div>

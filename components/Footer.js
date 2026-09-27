@@ -10,7 +10,7 @@ export default function Footer() {
           <Image src={logoImg} alt="FitLog logo" width={24} height={24} className="w-6 h-6" />
           FITLOG
         </Link>
-        <p>© 2026 FitLog — Workout Library. Train hard, log honest.</p>
+        <p className="text-xs text-gray-500">© 2026 FitLog — Workout Library. Train hard, log honest.</p>
       </div>
     </footer>
   );
