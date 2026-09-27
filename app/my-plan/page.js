@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Check, X, ChevronDown } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Check, X, ChevronDown, Search } from "lucide-react";
 import { usePlan } from "@/context/PlanContext";
 import { useToast } from "@/context/ToastContext";
 
@@ -16,8 +17,18 @@ export default function MyPlanPage() {
   const { plan, saved, metrics, hydrated, removeFromPlan, removeFromSaved, toggleDone } =
     usePlan();
   const { showToast } = useToast();
+  const searchParams = useSearchParams();
+
   const [activeTab, setActiveTab] = useState("today");
   const [sortBy, setSortBy] = useState("duration");
+  const [search, setSearch] = useState("");
+
+  // (e.g. clicking the Plan/Saved badges in the navbar).
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab === "saved") setActiveTab("saved");
+    else if (tab === "plan" || tab === "today") setActiveTab("today");
+  }, [searchParams]);
 
   const list = activeTab === "today" ? plan : saved;
 
@@ -31,6 +42,16 @@ export default function MyPlanPage() {
     return copy;
   }, [list, sortBy]);
 
+  const filteredList = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    if (!term) return sortedList;
+    return sortedList.filter(
+      (w) =>
+        w.name.toLowerCase().includes(term) ||
+        w.muscleGroups?.some((tag) => tag.toLowerCase().includes(term))
+    );
+  }, [sortedList, search]);
+
   const handleRemove = (id) => {
     if (activeTab === "today") {
       removeFromPlan(id);
@@ -43,7 +64,6 @@ export default function MyPlanPage() {
 
   const handleMarkDone = (id) => {
     toggleDone(id);
-    removeFromPlan(id);
     showToast("Marked as done", "success");
   };
 
@@ -85,24 +105,37 @@ export default function MyPlanPage() {
           ))}
         </div>
 
-        <div className="inline-flex items-center gap-2 text-sm">
-          <span className="text-gray-400">Sort By</span>
-          <div className="relative">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none bg-base-200 border border-white/10 rounded-full pl-4 pr-8 py-1.5 text-sm focus:outline-none"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              size={14}
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="relative w-full sm:w-56">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search"
+              className="w-full bg-base-200 border border-white/10 rounded-full pl-8 pr-4 py-1.5 text-sm focus:outline-none focus:border-accent/50"
             />
+          </div>
+
+          <div className="inline-flex items-center gap-2 text-sm">
+            <span className="text-gray-400">Sort By</span>
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="appearance-none bg-base-200 border border-white/10 rounded-full pl-4 pr-8 py-1.5 text-sm focus:outline-none"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={14}
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -122,9 +155,11 @@ export default function MyPlanPage() {
             Go to workouts
           </Link>
         </div>
+      ) : filteredList.length === 0 ? (
+        <p className="text-gray-400 text-center py-16">No matches for &quot;{search}&quot;.</p>
       ) : (
         <div className="space-y-3">
-          {sortedList.map((workout) => (
+          {filteredList.map((workout) => (
             <div
               key={workout.id}
               className="flex flex-col sm:flex-row sm:items-center gap-4 bg-base-200 border border-white/10 rounded-xl p-4"

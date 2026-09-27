@@ -34,13 +34,13 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-4 text-sm order-2 sm:order-3">
-          <Link href="/my-plan" className="flex items-center gap-2">
+          <Link href="/my-plan?tab=plan" className="flex items-center gap-2">
             <span className="text-gray-300">Plan</span>
             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-accent text-black text-xs font-bold">
               {plan.length}
             </span>
           </Link>
-          <Link href="/my-plan" className="flex items-center gap-2">
+          <Link href="/my-plan?tab=saved" className="flex items-center gap-2">
             <span className="text-gray-300">Saved</span>
             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-white/30 text-white text-xs font-bold">
               {saved.length}
